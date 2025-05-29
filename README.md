@@ -5,7 +5,7 @@ struct Proceso {
     int id;
     string estado; // "listo", "ejecutando", "bloqueado"
     int prioridad;
-    int memoria[100]; // pila de memoria simple (arreglo)
+    int memoria[100]; // pila de memoria simple
     int topeMemoria;
     Proceso* siguiente;
 };
@@ -13,8 +13,18 @@ struct Proceso {
 Proceso* cabeza = NULL;
 int siguienteID = 1;
 
-// Agregar proceso al final de la lista
+// Función para validar el estado
+bool estadoValido(string estado) {
+    return estado == "listo" || estado == "ejecutando" || estado == "bloqueado";
+}
+
+// Crear un nuevo proceso
 void crearProceso(string estado, int prioridad) {
+    if (!estadoValido(estado)) {
+        cout << "Estado inválido. Usa: listo, ejecutando, bloqueado.\n";
+        return;
+    }
+
     Proceso* nuevo = new Proceso;
     nuevo->id = siguienteID++;
     nuevo->estado = estado;
@@ -48,6 +58,11 @@ void mostrarProcesos() {
 
 // Cambiar estado de un proceso
 void cambiarEstado(int id, string nuevoEstado) {
+    if (!estadoValido(nuevoEstado)) {
+        cout << "Estado inválido. Usa: listo, ejecutando, bloqueado.\n";
+        return;
+    }
+
     Proceso* aux = cabeza;
     while (aux != NULL) {
         if (aux->id == id) {
@@ -65,12 +80,16 @@ int main() {
     crearProceso("listo", 3);
     crearProceso("ejecutando", 1);
     crearProceso("bloqueado", 2);
+    crearProceso("invalido", 2);  // Prueba de validación
 
     cout << "\n--- Procesos actuales ---" << endl;
     mostrarProcesos();
 
     cout << "\n--- Cambiando estado del proceso 2 ---" << endl;
     cambiarEstado(2, "bloqueado");
+
+    cout << "\n--- Intentando cambiar a estado inválido ---" << endl;
+    cambiarEstado(1, "durmiendo");
 
     cout << "\n--- Procesos actualizados ---" << endl;
     mostrarProcesos();
