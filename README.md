@@ -10,7 +10,6 @@ struct Proceso
     int topeMemoria;
     Proceso* siguiente;
 };
-
 Proceso* cabeza = NULL;
 int siguienteID = 1;
 
@@ -28,14 +27,12 @@ void crearProceso(string estado, int prioridad)
         cout << "Estado inválido. Usa: listo, ejecutando, bloqueado.\n";
         return;
     }
-
     Proceso* nuevo = new Proceso;
     nuevo->id = siguienteID++;
     nuevo->estado = estado;
     nuevo->prioridad = prioridad;
     nuevo->topeMemoria = -1;
     nuevo->siguiente = NULL;
-
     if (cabeza == NULL) 
     {
         cabeza = nuevo;
@@ -47,7 +44,6 @@ void crearProceso(string estado, int prioridad)
             aux = aux->siguiente;
         aux->siguiente = nuevo;
     }
-
     cout << "Proceso creado con ID: " << nuevo->id << ", Estado: " << estado << endl;
 }
 
@@ -73,7 +69,6 @@ void cambiarEstado(int id, string nuevoEstado)
         cout << "Estado inválido. Usa: listo, ejecutando, bloqueado.\n";
         return;
     }
-
     Proceso* aux = cabeza;
     while (aux != NULL) 
     {
@@ -87,7 +82,6 @@ void cambiarEstado(int id, string nuevoEstado)
     }
     cout << "Proceso no encontrado." << endl;
 }
-
 // Función principal
 int main() 
 {
@@ -95,19 +89,14 @@ int main()
     crearProceso("ejecutando", 1);
     crearProceso("bloqueado", 2);
     crearProceso("invalido", 2);  // Prueba de validación
-
     cout << "\n--- Procesos actuales ---" << endl;
     mostrarProcesos();
-
     cout << "\n--- Cambiando estado del proceso 2 ---" << endl;
     cambiarEstado(2, "bloqueado");
-
     cout << "\n--- Intentando cambiar a estado inválido ---" << endl;
     cambiarEstado(1, "durmiendo");
-
     cout << "\n--- Procesos actualizados ---" << endl;
     mostrarProcesos();
-
     return 0;
 }
 
