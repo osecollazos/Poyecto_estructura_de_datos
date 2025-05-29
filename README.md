@@ -1,7 +1,8 @@
 #include <iostream>
 using namespace std;
 
-struct Proceso {
+struct Proceso 
+{
     int id;
     string estado; // "listo", "ejecutando", "bloqueado"
     int prioridad;
@@ -14,13 +15,16 @@ Proceso* cabeza = NULL;
 int siguienteID = 1;
 
 // Función para validar el estado
-bool estadoValido(string estado) {
+bool estadoValido(string estado) 
+{
     return estado == "listo" || estado == "ejecutando" || estado == "bloqueado";
 }
 
 // Crear un nuevo proceso
-void crearProceso(string estado, int prioridad) {
-    if (!estadoValido(estado)) {
+void crearProceso(string estado, int prioridad) 
+{
+    if (!estadoValido(estado)) 
+    {
         cout << "Estado inválido. Usa: listo, ejecutando, bloqueado.\n";
         return;
     }
@@ -32,9 +36,12 @@ void crearProceso(string estado, int prioridad) {
     nuevo->topeMemoria = -1;
     nuevo->siguiente = NULL;
 
-    if (cabeza == NULL) {
+    if (cabeza == NULL) 
+    {
         cabeza = nuevo;
-    } else {
+    } 
+    else 
+    {
         Proceso* aux = cabeza;
         while (aux->siguiente != NULL)
             aux = aux->siguiente;
@@ -45,9 +52,11 @@ void crearProceso(string estado, int prioridad) {
 }
 
 // Mostrar todos los procesos
-void mostrarProcesos() {
+void mostrarProcesos() 
+{
     Proceso* aux = cabeza;
-    while (aux != NULL) {
+    while (aux != NULL) 
+    {
         cout << "ID: " << aux->id
              << ", Estado: " << aux->estado
              << ", Prioridad: " << aux->prioridad
@@ -57,15 +66,19 @@ void mostrarProcesos() {
 }
 
 // Cambiar estado de un proceso
-void cambiarEstado(int id, string nuevoEstado) {
-    if (!estadoValido(nuevoEstado)) {
+void cambiarEstado(int id, string nuevoEstado) 
+{
+    if (!estadoValido(nuevoEstado)) 
+    {
         cout << "Estado inválido. Usa: listo, ejecutando, bloqueado.\n";
         return;
     }
 
     Proceso* aux = cabeza;
-    while (aux != NULL) {
-        if (aux->id == id) {
+    while (aux != NULL) 
+    {
+        if (aux->id == id) 
+        {
             aux->estado = nuevoEstado;
             cout << "Estado del proceso " << id << " cambiado a " << nuevoEstado << endl;
             return;
@@ -76,7 +89,8 @@ void cambiarEstado(int id, string nuevoEstado) {
 }
 
 // Función principal
-int main() {
+int main() 
+{
     crearProceso("listo", 3);
     crearProceso("ejecutando", 1);
     crearProceso("bloqueado", 2);
