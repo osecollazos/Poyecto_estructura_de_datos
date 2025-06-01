@@ -15,3 +15,32 @@ struct Proceso {
     Proceso* siguiente;
 };
 
+Proceso* cabeza = NULL;
+
+string obtenerEstado(int opcion) {
+    switch (opcion) {
+        case 1: return "listo";
+        case 2: return "ejecutando";
+        case 3: return "bloqueado";
+        default: return "invalido";
+    }
+}
+
+string obtenerPrioridad(int opcion) {
+    switch (opcion) {
+        case 1: return "Alta";
+        case 2: return "Media";
+        case 3: return "Baja";
+        default: return "invalida";
+    }
+}
+
+bool idExiste(int id) {
+    Proceso* aux = cabeza;
+    while (aux != NULL) {
+        if (aux->id == id)
+            return true;
+        aux = aux->siguiente;
+    }
+    return false;
+}
